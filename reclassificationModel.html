@@ -1,0 +1,38 @@
+<md-dialog aria-label="Errors">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h1>This is reclassification modal</h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <h1>Reclassification</h1>
+
+            <div ng-repeat="data in dataOnPopup">
+                <mod-table allcategoriesdata="dropDownCategories" current-ind="$index" ind-first="$first" ind-last="$last"
+                           items = "dataOnPopup" catg="catg" sel-row="selRow"></mod-table><br/>
+            </div>
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="hide()">
+                Close
+            </md-button>
+            <input type="submit" value="submit" ng-click="checkqty()">
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+<style>
+    th,td{
+        min-width: 20px;
+        padding: 5px;
+    }
+
+</style>

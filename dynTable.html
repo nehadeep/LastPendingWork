@@ -1,0 +1,46 @@
+<table style="width:100%;border:solid 1px #c3c6a7;position: relative" border="1" >
+    <thead>
+    <tr>
+        <th colspan="{{columns.length}}">
+            <div>
+                <div ng-click="showListPopup()" ng-bind="bindSeletedtext"></div>
+                <div ng-show="showDP" style="position: absolute;z-index:10">
+                    <ul style="background-color: #E1EDEB;display: inline-block;">
+                        <li ng-repeat="x in allcategoriesdata" ng-click="selectDpCahnge(x)" ng-hide="x.trunctate">{{x.Category.Name + '-'+ x.Name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <th ng-repeat="column in columns">
+            <label style="float:left"> {{column.Label}} </label>
+        </th>
+    </tr>
+    </thead>
+    <tbody ng-if="indFirst">
+    <tr ng-repeat="item in data.data track by $index">
+        <td ng-repeat="column in columns">
+            <!--<span ng-if="mappingObj.hasOwnProperty(column.ColumnName)">{{bingValue(item,mappingObj[column.ColumnName])}}</span>-->
+            <inventory-field ng-if="mappingObj.hasOwnProperty(column.ColumnName)" type="column.ControlType" value="item[mappingObj[column.ColumnName]]" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':columns,'row':item,'column':column,'desc':mappingObj[column.ColumnName],'wholeDataForQty':items,'whichTable':{'first':indFirst,'last':indLast,'presentIndx':currentInd}}"></inventory-field>
+            <inventory-field ng-if="column.ColumnName === 'TOT_AMT'" type="column.ControlType" value="TotalAmt(item.Value,item.Unit,item.Quantity)" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':columns,'row':item,'column':column,'desc':mappingObj[column.ColumnName],'wholeDataForQty':items,'whichTable':{'first':indFirst,'last':indLast,'presentIndx':currentInd}}"></inventory-field>
+        </td>
+    </tr>
+    </tbody>
+    <tbody ng-if="!indFirst">
+    <tr ng-repeat="item in data.data track by $index">
+        <td ng-repeat="column in columns">
+            <!--<span ng-if="mappingObj.hasOwnProperty(column.ColumnName)">{{bingValue(item,mappingObj[column.ColumnName])}}</span>-->
+            <inventory-field ng-if="mappingObj.hasOwnProperty(column.ColumnName)" type="column.ControlType" value="item[mappingObj[column.ColumnName]]" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':columns,'row':item,'column':column,'desc':mappingObj[column.ColumnName],'wholeDataForQty':items,'whichTable':{'first':indFirst,'last':indLast,'presentIndx':currentInd}}"></inventory-field>
+
+            <inventory-field ng-if="column.ColumnName === 'TOT_AMT'" type="column.ControlType" value="TotalAmt(item.Value,item.Unit,item.Quantity)" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':columns,'row':item,'column':column,'desc':mappingObj[column.ColumnName],'wholeDataForQty':items,'whichTable':{'first':indFirst,'last':indLast,'presentIndx':currentInd}}"></inventory-field>
+            <span ng-if="column.ColumnName === 'REMOVE_ITEM'" ng-click="removeRowFromTable(item)">X</span>
+
+    </tr>
+    </tbody>
+    <tfoot ng-if="!indFirst">
+    <tr ng-if="columns.length">
+        <td colspan="{{columns.length}}"><span ng-click="addRowToTable(tabCode)" style="float: right;color:blue;cursor:pointer">+ Add Additional Item.</span></td>
+    </tr>
+    </tfoot>
+</table>

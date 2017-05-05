@@ -1,0 +1,15 @@
+<div>edit page</div>
+
+<label style="color:red;">{{tab1}}{{RepositoryinventoryData.length}}</label>
+<div ng-repeat="data in playersToFilter() | filter:filterTeams" style="margin:20px 10px;padding:10px;">
+<u><b>{{data.Category.Name}}</b></u>
+	---{{RepositoryinventoryData.length}}+++
+<div ng-repeat="category in filteredObject[data.Category.Name]">
+{{category.Code}} --> {{category.Name}}
+	<inventory-grid sub-category-code = "category" data= "RepositoryinventoryData" meta-data="metadata" inv-data="inventoryData"></inventory-grid>
+</div>
+</div>
+<!-- <ul ng-repeat="(key,val) in categories | groupBy:'Category.Name'">
+	{{key}}
+		<li ng-repeat="data in val">{{data.Name}}</li>
+</ul> -->

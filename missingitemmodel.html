@@ -1,0 +1,30 @@
+<md-dialog aria-label="Errors">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{misd.selectedPacketType}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+            </div>
+            <div class="md-dialog-content">
+                <div>
+                    <div class="popupWindowContent">
+                        <read-only-inventory-grid  packets ="misd.packets" packet-id="misd.packetId" short-mode="misd.shortMode"></read-only-inventory-grid>
+                    </div>
+                </div>
+            </div>
+                </md-toolbar>
+
+                <md-dialog-content>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="hide()">
+                Close
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

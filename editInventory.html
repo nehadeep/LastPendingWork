@@ -1,0 +1,23 @@
+
+<a href="#editInventory">GO To Edit Inventory</a>
+<div class="detail3mainpage" >
+    <!-- <ol start="1">
+        <li ng-repeat= "step in itemsSteps"  ng-class= "{'active':selectActive == $index}">{{step.name}}
+        <span ng-if='selectActive == $index' style="color:black;" ng-bind-html="step.text"></span>
+        </li>
+    </ol> -->
+    <transaction-progression ng-if="isStepsLoad" steps = "itemsSteps" current-step= "selectActive+1"></transaction-progression>
+    <transaction-instructions ng-if="isStepsLoad" steps= "itemsSteps" current-step= "selectActive+1"></transaction-instructions>
+    <input type="button" name="" value="Back" class="backbtn" ng-click="goBack()"/>
+
+    <span  data-ng-show="selectActive!=1">
+		<input type="button" name="" value="Nextttt" class="next"  ng-click="goToNextState(selectActive)"/>
+	</span>
+
+    <span  data-ng-show="selectActive==1">
+		<input type="submit" name="" value="Submit" class="next"  ng-click="goToNextState()"/>
+	</span>
+
+
+    <ui-view></ui-view>
+</div>

@@ -1,0 +1,41 @@
+<p>confirmation page</p>
+<table border="1">
+    <thead>
+        <tr>
+            <th colspan="2">Action Summary</th>
+        </tr>
+        <tr>
+            <th>Packet</th>
+            <th>Items Moved</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Repository</td>
+            <td><span ng-click="showDetails(reposId)">{{verifiedData.length}}</span></td>
+        </tr>
+        <tr>
+            <td>Missing</td>
+            <td><span ng-click="showDetails(misngId)">{{allUnverifiedData.length}}</span></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<!--
+<table border="1" ng-show="show">
+    <tbody>
+        <tr>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Description</th>
+            <th>Message</th>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>-->

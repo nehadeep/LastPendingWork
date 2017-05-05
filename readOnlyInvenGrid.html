@@ -1,0 +1,66 @@
+<div ng-if="shortMode">
+    <div ng-repeat ="(key, value) in roInvGrid.SubCategories | groupBy: 'Category.Name'">
+        <div ng-repeat="subcategory in value">
+           <div ng-repeat="item in roInvGrid.selectedInventory | filter: {SubCategoryCode:subcategory.Code}">
+         <span>{{key}}</span>
+            <span>{{subcategory.Name}}</span>
+               <div ng-repeat="column in subcategory.ColumnDefinitions" ng-show="column.ColumnName != 'ITEM_ID'">
+
+               <span>    <label ng-if="column.ColumnName === 'DESC_1'"> {{ item.Description1 }}</label></span>
+               </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<table ng-if="!shortMode">
+    <tr>
+        <td class="leftPane" ng-if="roInvGrid.ShowPackets" >
+            <div ng-repeat="packet in roInvGrid.packets">
+                <a class="buttonAsLink" ng-click="roInvGrid.ChangePacketSelected(packet.Id)">
+                    {{packet.Type.Desc}}
+                </a>
+            </div>
+        </td>
+        <td>
+            <div ng-repeat ="(key, value) in roInvGrid.SubCategories | groupBy: 'Category.Name'">
+                <accordian-box  ng-show="roInvGrid.ShowCategory(value)" heading="{{ key }}" expanded="true">
+                    <div class="session-subcategory">
+                        <div ng-repeat="subcategory in value">
+                            <div class="subcategories-wrapper">
+                                <accordian-box ng-show="roInvGrid.HasItems(subcategory.Code)" heading="{{subcategory.Name}}" expanded="true">
+                                    <table class="inventoryGridTable">
+                                        <thead class="inventoryGridTableHead">
+                                        <tr>
+                                            <th class="inventoryGridTableTh" ng-repeat="column in subcategory.ColumnDefinitions" ng-show="column.ColumnName != 'ITEM_ID'" >
+                                                <label class="inventoryGridHeaderLabel"> {{column.Label}} </label>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in roInvGrid.selectedInventory | filter: {SubCategoryCode:subcategory.Code}">
+                                            <td ng-repeat="column in subcategory.ColumnDefinitions" ng-show="column.ColumnName != 'ITEM_ID'" class="inventoryGridTd">
+                                                <label ng-if="column.ColumnName === 'DESC_1'"> {{ item.Description1 }}</label>
+                                                <label ng-if="column.ColumnName === 'DESC_2'"> {{ item.Description2 }}</label>
+                                                <label ng-if="column.ColumnName === 'DESC_3'"> {{ item.Description3 }}</label>
+                                                <label ng-if="column.ColumnName === 'COLR'"> {{ item.Color }}</label>
+                                                <label ng-if="column.ColumnName === 'BRKN'"> {{ item.IsBroken }}</label>
+                                                <label ng-if="column.ColumnName === 'UNIT_AMT'"> {{ item.Unit }}</label>
+                                                <label ng-if="column.ColumnName === 'QUANTY'"> {{ item.Quantity }}</label>
+                                                <label ng-if="column.ColumnName === 'TOT_AMT'"> {{ item.Value= item.Unit*item.Quantity }}</label>
+                                                <label ng-if="column.ColumnName === 'CURNCY'"> {{ item.Currency }}</label>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </accordian-box>
+                            </div>
+                        </div>
+                    </div>
+                </accordian-box>
+            </div>
+        </td>
+    </tr>
+</table>
+
+

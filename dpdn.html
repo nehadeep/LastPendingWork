@@ -1,0 +1,9 @@
+<md-dialog>
+    <p>hfghgfhgfhgfgf</p>
+    ---{{allcategories}}+++
+    <div ng-show="showDP">
+        <ul style="background-color: #E1EDEB;display: inline-block;">
+            <li ng-repeat="x in allcategories" ng-click="selectDpCahnge(x)">{{x.Category.Name + '-'+ x.Name}}</li>
+        </ul>
+    </div>
+</md-dialog>

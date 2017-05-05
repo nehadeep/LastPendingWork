@@ -1,0 +1,4 @@
+<div> Transaction Progression</div>
+<ol type="1">
+<li ng-repeat ="step in steps" ng-class= "{current : step.Number === currentStep,nocurrent: step.Number !== currentStep}">{{step.Name}}</li>
+</ol>

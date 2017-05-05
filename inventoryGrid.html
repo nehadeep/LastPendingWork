@@ -1,0 +1,66 @@
+<style type="text/css">
+    .bckred{
+       border: 1px solid red;;
+    }
+    th,td{
+        min-width: 20px;
+        padding: 5px;
+    }
+</style>
+
+
+<table style="width:100%;border:solid 1px #c3c6a7" border="1" >
+
+    <thead>
+        <tr>
+            <th ng-repeat="column in invGrid.selectedSubCategory.ColumnDefinitions">
+               <label style="float:left"> {{column.Label}} </label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <!-- <tr ng-repeat="item in data | filter: {SubCategory : {Code : subCategoryCode}}"> -->
+        <tr ng-repeat="item in updateFilter() track by $index" ng-init="parentInd=$index">
+            <!-- <td>
+                <inventory-field ng-if="column.ColumnName === 'ITEM_ID'" type="column.ControlType" value="item.ID" lookup-key="column.SourceAttributeKey"></inventory-field>
+            </td>     -->
+            <td ng-repeat="column in invGrid.selectedSubCategory.ColumnDefinitions">
+          <!--   item.IsVerified--{{item.IsVerified}} -->
+
+                <input ng-if="column.ColumnName === 'ITEM_ID' && !chkMisgDat && !checkrepodata " type="checkbox" ng-checked="item.IsVerified" ng-model="item.IsVerified" ng-show="item.ID>0">
+
+                <inventory-field ng-if="column.ColumnName === 'DESC_1'" type="column.ControlType" value="item.Description1" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Description1'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'DESC_2'" type="column.ControlType" value="item.Description2" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Description2'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'DESC_3'" type="column.ControlType" value="item.Description3" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Description3'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'COLR'" type="column.ControlType" value="item.Color" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Color'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'BRKN'" type="column.ControlType" value="item.IsBroken" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'IsBroken'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'UNIT_AMT'" type="column.ControlType" value="item.Unit" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Unit'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'QUANTY'"  type="column.ControlType" value="item.Quantity" lookup-key="column.SourceAttributeKey" ng-if="item.IsQuantityChanged" ng-model="item.IsQuantityChanged" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Quantity'}"></inventory-field>
+
+                <inventory-field ng-if="column.ColumnName === 'TOT_AMT'" type="column.ControlType" value="item.Value = item.Unit*item.Quantity" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Quantity'}"></inventory-field>
+
+                <!-- <inventory-field ng-if="column.ColumnName === 'CURNCY'" type="column.ControlType" value="item.Currency" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column}"></inventory-field> -->
+
+                <inventory-field ng-if="column.ColumnName === 'CURNCY'" type="column.ControlType" value="item.Currency" lookup-key="column.SourceAttributeKey" item-data="{'colDefs':invGrid.selectedSubCategory.ColumnDefinitions,'row':item,'column':column,'desc':'Currency'}"></inventory-field>
+
+                <span ng-if="column.ColumnName === 'REMOVE_ITEM' && !item.removeItem && !chkMisgDat" ng-click="reclassificationModel(invGrid.selectedSubCategory.ColumnDefinitions,item)"><img src="http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/512/mail-icon.png" width="20" height="20"></span>
+                <span ng-if="column.ColumnName === 'REMOVE_ITEM' && item.removeItem && !chkMisgDat" ng-click="removeRowFromTable(parentInd,item)">X</span>
+
+                <span ng-if="column.ColumnName === 'REMOVE_ITEM' && chkMisgDat" ng-click="undoRowFromTable(parentInd,item)"><img src="https://cdn2.iconfinder.com/data/icons/picons-basic-3/57/basic3-122_back_revert_undo-128.png" width="20" height="20"></span>
+                
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr ng-if="!chkMisgDat">
+            <td colspan="{{invGrid.selectedSubCategory.ColumnDefinitions.length}}"><span ng-click="addRowToTable()" style="float: right;color:blue;cursor:pointer">+ Add Additional Item.</span></td>
+        </tr>
+    </tfoot>
+</table>

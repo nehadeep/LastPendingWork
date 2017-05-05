@@ -1,0 +1,16 @@
+<div>edit page</div>
+
+<div ng-repeat="data in playersToFilter() | filter:filterTeams" style="margin:20px 10px;padding:10px;">
+	<u><b>{{data.Category.Name}}</b></u>
+	<div ng-repeat="player in filteredObject[data.Category.Name] | filter : {Code : player.Code}">
+
+	{{player.Code}}--{{player.Name}}
+		<grid-data data="player" selected-code="selectedCode" sub-category-code="data.Code" all-grid-options="allGridOptions" sub-categories='metadata' inv-data="finalInvData"></grid-data>
+		<!-- <div ng-click="selectedCode=player.Code">Add Additional Item</div>   -->
+		<div ng-click="addRow(player,data)">Add Additional Item</div>
+	</div>
+</div>
+<!-- <ul ng-repeat="(key,val) in categories | groupBy:'Category.Name'">
+	{{key}}
+		<li ng-repeat="data in val">{{data.Name}}</li>
+</ul> -->

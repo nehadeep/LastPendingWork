@@ -1,0 +1,26 @@
+<style>
+    .redBorder{
+        border-color: #ff0000;
+    }
+</style>
+<div>
+    <div  ng-focus="ifc.readOnly = !ifc.readOnly" ng-show="ifc.readOnly" class="infotext" style="width: 100%;min-height: 20px;">
+        <div ng-click="toEdit()" style="width: 100%;min-height: 20px;">{{value}}</div>
+    </div>
+    <div ng-show="!ifc.readOnly && type === 'TEXT'">
+        <input ng-class="{redBorder:selItem.errorClass && value==''}" class="skintextbox" type="text" ng-model="value" ng-focus="toGetQty(value,itemData)" ng-blur="ifc.readOnly = !ifc.readOnly;chkEmpty(value,itemData);chkForQty()" ng-change="rowEditEvent(selItem,value)"/>
+    </div>
+    <div ng-show="!ifc.readOnly && type === 'DROPDOWN'">
+        <select class="skindropdownlist" ng-blur="ifc.readOnly = !ifc.readOnly" ng-model="value" ng-options="item.Value as item.Desc for item in Metadata.Lookups | filter: {CategoryCode: lookupKey} : true" ng-change="rowEditEvent(selItem,value)">
+        
+<!--            <option ng-repeat="item.Desc in item in Metadata.Lookups track by item.Desc| filter: {CategoryCode: lookupKey} : true" value="item.Value">{{item.Desc}}</option>-->
+        </select>
+        <!--{{lookupKey}} - {{Metadata.Lookups.length}}-->
+    </div>
+    <div ng-show="!ifc.readOnly && type === 'LABEL'">
+        <div ng-blur="ifc.readOnly = !ifc.readOnly" class="infotext">{{value}}</div>
+    </div>
+    <div ng-show="!ifc.readOnly && type === 'CHECKBOX'">
+        <input type="checkbox" ng-model="value" ng-true-value="'Y'" ng-false-value="'N'" ng-blur="ifc.readOnly = !ifc.readOnly" />
+    </div>
+</div>

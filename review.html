@@ -1,0 +1,44 @@
+<style type="text/css">
+	ul.horizontalTabs{
+		list-style-type: none;
+	}
+	ul.horizontalTabs li{
+		display: inline-block;
+	}
+	ul li.active{
+		color: red;
+	}
+</style>
+
+<p>review page</p>
+<ul class="horizontalTabs">
+	<li ng-class="{active:isSet(1)}"><label ng-click="setTab(1)"> {{tab3}}</label></li>
+	<li ng-class="{active:isSet(2)}"><label ng-click="setTab(2)"> {{tab2}}</label></li>
+</ul>
+<div class="repository" ng-show="isSet(1)">
+	<h1>Missing data</h1>
+	<div ng-repeat="data in playersToFilter() | filter:filterTeams" style="margin:20px 10px;padding:10px;">
+		<u><b>{{data.Category.Name}}</b></u>
+		---{{allUnverifiedData.length}}++parentLength--{{$parent.allUnverifiedData.length}}+
+
+		<div ng-repeat="category in filteredObject[data.Category.Name]">
+			{{category.Code}}--{{category.Name}}--{{allUnverifiedData.length}}
+			<inventory-grid sub-category-code ="category" data= "allUnverifiedData" meta-data="metadata" inv-data="originalStoreData" section="missingData">
+			</inventory-grid>
+
+		</div>
+	</div>
+</div>
+<div class="missing" ng-show="isSet(2)">
+	<h1>Repository data</h1>
+	<div ng-repeat="data in playersToFilter() | filter:filterTeams" style="margin:20px 10px;padding:10px;">
+		<u><b>{{data.Category.Name}}</b></u>
+
+		<div ng-repeat="category in filteredObject[data.Category.Name]">
+			{{category.Code}}--{{category.Name}}--{{verifiedData.length}}
+			<inventory-grid sub-category-code ="category" data= "verifiedData" meta-data="metadata" inv-data="originalStoreData" section="repoData">
+			</inventory-grid>
+
+		</div>
+	</div>
+</div>

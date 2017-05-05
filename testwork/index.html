@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="newApp">
+<head>
+	<title>test</title>
+	<script data-require="angular.js@1.2.15" data-semver="1.2.15"
+			src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+</head>
+<body ng-controller="myCtrl">
+<div>
+	<div class="main" ng-click="showcontainer()" ng-bind="defaulttext"></div>
+	<div class="container" ng-show="showDp">
+		<ul>
+			<li ng-repeat="x in foo track by $index" ng-click="changevalue(x)">{{x.label}}--{{$index}}</li>
+		</ul>
+
+
+	</div>
+
+	<select ng-model="selected[$index]" ng-repeat="x in foo" ng-options="x.id as x.label for x in foo |customFilter:selected:selected[$index]"></select>
+
+
+	<Script>
+		var app = angular.module('newApp', []);
+        app.filter('customFilter', function(filterFilter) {
+            return function(input, filterEach, exclude) {
+                filterEach.forEach(function(item) {
+                    if (angular.equals(item, exclude)) { return; }
+                    input = filterFilter(input, '!'+item);
+                });
+                return input;
+            };
+        });
+		app.controller('myCtrl', function ($scope) {
+		    $scope.showcontainer = function () {
+				$scope.showDp = !$scope.showDp;
+            }
+            $scope.showcontainer1 = function () {
+                $scope.showDp = !$scope.showDp;
+            }
+            $scope.defaulttext = "category"
+            $scope.changevalue = function (data) {
+				$scope.defaulttext = data.label;
+            }
+		$scope.foo = [{
+		    id : 1,
+			label : 'label1'
+		},
+            {
+                id : 2,
+                label : 'label2'
+            },
+            {
+                id : 3,
+                label : 'label3'
+            }
+		];
+		$scope.selected= [];
+        });
+	</Script>
+</div>
+</body>
+</html>
